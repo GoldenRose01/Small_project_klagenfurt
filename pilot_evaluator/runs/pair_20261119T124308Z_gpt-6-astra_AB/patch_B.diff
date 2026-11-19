@@ -1,0 +1,63 @@
+diff --git a/src/reporting/policy.py b/src/reporting/policy.py
+index 525ddae..a09b911 100644
+--- a/src/reporting/policy.py
++++ b/src/reporting/policy.py
+@@ -1,12 +1,10 @@
+-"""Visibility policy for reports."""
+-
+-from collections.abc import Iterable
+-from .models import Report
+-
+-
+-def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
+-    """Return reports visible to a user with the given group memberships.
+-
+-    Starting baseline: returns all reports without applying group filtering.
+-    """
+-    return list(reports)
++"""Visibility policy for reports."""
++
++from collections.abc import Iterable
++from .models import Report
++
++
++def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
++    """Return reports belonging to the user's groups in their original order."""
++    groups = set(user_groups)
++    return [report for report in reports if report["group"] in groups]
+diff --git a/tests/test_policy.py b/tests/test_policy.py
+new file mode 100644
+index 0000000..3fd6fb7
+--- /dev/null
++++ b/tests/test_policy.py
+@@ -0,0 +1,30 @@
++"""Regression checks for group-based report visibility."""
++
++from copy import deepcopy
++import unittest
++
++from reporting import list_user_reports, visible_reports
++
++
++class VisibilityTests(unittest.TestCase):
++    def test_group_visibility(self) -> None:
++        reports = [
++            {"id": "r3", "group": "beta", "title": "Third"},
++            {"id": "r1", "group": "alpha", "title": "First"},
++            {"id": "r2", "group": "beta", "title": "Second"},
++        ]
++        for groups, source, expected in [
++            (["beta"], reports, [reports[0], reports[2]]),
++            (["alpha", "beta", "beta"], reports, reports),
++            (["unknown"], reports, []),
++            ([], reports, []),
++            (["alpha"], [], []),
++            ([], [], []),
++        ]:
++            with self.subTest(groups=groups, reports=source):
++                user = {"id": "u1", "groups": groups}
++                before = deepcopy((user, source))
++                self.assertEqual(visible_reports(groups, source), expected)
++                self.assertEqual(list_user_reports(user, source), expected)
++                self.assertEqual((user, source), before)
++                self.assertEqual(visible_reports(iter(groups), source), expected)

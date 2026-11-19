@@ -1,0 +1,82 @@
+diff --git a/src/reporting/policy.py b/src/reporting/policy.py
+index 525ddae..0b501b2 100644
+--- a/src/reporting/policy.py
++++ b/src/reporting/policy.py
+@@ -1,12 +1,10 @@
+-"""Visibility policy for reports."""
+-
+-from collections.abc import Iterable
+-from .models import Report
+-
+-
+-def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
+-    """Return reports visible to a user with the given group memberships.
+-
+-    Starting baseline: returns all reports without applying group filtering.
+-    """
+-    return list(reports)
++"""Visibility policy for reports."""
++
++from collections.abc import Iterable
++from .models import Report
++
++
++def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
++    """Return matching reports in input order without modifying the inputs."""
++    groups = set(user_groups)
++    return [report for report in reports if report["group"] in groups]
+diff --git a/tests/test_visibility.py b/tests/test_visibility.py
+new file mode 100644
+index 0000000..a812fd3
+--- /dev/null
++++ b/tests/test_visibility.py
+@@ -0,0 +1,49 @@
++"""Regression tests for group-based report visibility."""
++
++from copy import deepcopy
++import unittest
++
++from reporting import list_user_reports, visible_reports
++
++
++class VisibilityTests(unittest.TestCase):
++    def setUp(self) -> None:
++        self.reports = [
++            {"id": "r1", "group": "beta", "title": "Beta report"},
++            {"id": "r2", "group": "private", "title": "Private report"},
++            {"id": "r3", "group": "alpha", "title": "Alpha report"},
++            {"id": "r4", "group": "beta", "title": "Another beta report"},
++        ]
++
++    def test_public_interfaces_filter_in_original_order(self) -> None:
++        groups = ["alpha", "beta"]
++        user = {"id": "u1", "groups": groups}
++        expected = [self.reports[0], self.reports[2], self.reports[3]]
++        original = deepcopy((user, self.reports))
++
++        self.assertEqual(visible_reports(groups, self.reports), expected)
++        self.assertEqual(list_user_reports(user, self.reports), expected)
++        self.assertEqual((user, self.reports), original)
++
++    def test_empty_inputs_and_unmatched_groups(self) -> None:
++        for groups, reports in [
++            ([], self.reports),
++            (["alpha"], []),
++            ([], []),
++            (["unknown"], self.reports),
++        ]:
++            with self.subTest(groups=groups, reports=reports):
++                self.assertEqual(visible_reports(groups, reports), [])
++                self.assertEqual(
++                    list_user_reports({"id": "u1", "groups": groups}, reports), []
++                )
++
++    def test_group_iterable_is_supported(self) -> None:
++        self.assertEqual(
++            visible_reports(iter(["beta"]), self.reports),
++            [self.reports[0], self.reports[3]],
++        )
++
++
++if __name__ == "__main__":
++    unittest.main()

@@ -1,0 +1,16 @@
+diff --git a/src/reporting/policy.py b/src/reporting/policy.py
+index 525ddae..48a5102 100644
+--- a/src/reporting/policy.py
++++ b/src/reporting/policy.py
+@@ -5,8 +5,6 @@ from .models import Report
+ 
+ 
+ def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
+-    """Return reports visible to a user with the given group memberships.
+-
+-    Starting baseline: returns all reports without applying group filtering.
+-    """
+-    return list(reports)
++    """Return reports from the user's groups in their original order."""
++    groups = set(user_groups)
++    return [report for report in reports if report["group"] in groups]

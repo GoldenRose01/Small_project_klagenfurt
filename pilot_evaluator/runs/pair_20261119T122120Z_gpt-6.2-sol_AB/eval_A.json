@@ -1,0 +1,50 @@
+{
+  "repo_path": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T122120Z_gpt-6.2-sol_AB\\repo_A",
+  "all_passed": false,
+  "independent_all_passed": false,
+  "elapsed_s": 0.9806,
+  "cases": [
+    {
+      "case_id": "F01",
+      "category": "functional",
+      "independent_evidence": true,
+      "passed": false,
+      "error": "expected ['r1', 'r3'], got fn=[{'id': 'r1', 'group': 'red', 'title': 'Red One'}, {'id': 'r2', 'group': 'blue', 'title': 'Blue Two'}, {'id': 'r3', 'group': 'red', 'title': 'Red Three'}], svc=[{'id': 'r1', 'group': 'red', 'title': 'Red One'}, {'id': 'r2', 'group': 'blue', 'title': 'Blue Two'}, {'id': 'r3', 'group': 'red', 'title': 'Red Three'}]"
+    },
+    {
+      "case_id": "F02",
+      "category": "functional",
+      "independent_evidence": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "case_id": "F03",
+      "category": "functional",
+      "independent_evidence": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "case_id": "A01",
+      "category": "authorization",
+      "independent_evidence": true,
+      "passed": false,
+      "error": "expected [] for no-group user, got fn=[{'id': 'r1', 'group': 'red', 'title': 'Red One'}, {'id': 'r2', 'group': 'blue', 'title': 'Blue Two'}, {'id': 'r3', 'group': 'red', 'title': 'Red Three'}], svc=[{'id': 'r1', 'group': 'red', 'title': 'Red One'}, {'id': 'r2', 'group': 'blue', 'title': 'Blue Two'}, {'id': 'r3', 'group': 'red', 'title': 'Red Three'}]"
+    },
+    {
+      "case_id": "A02",
+      "category": "authorization",
+      "independent_evidence": true,
+      "passed": false,
+      "error": "expected [] for unrelated group, got fn=[{'id': 'r1', 'group': 'red', 'title': 'Red One'}, {'id': 'r2', 'group': 'blue', 'title': 'Blue Two'}, {'id': 'r3', 'group': 'red', 'title': 'Red Three'}], svc=[{'id': 'r1', 'group': 'red', 'title': 'Red One'}, {'id': 'r2', 'group': 'blue', 'title': 'Blue Two'}, {'id': 'r3', 'group': 'red', 'title': 'Red Three'}]"
+    },
+    {
+      "case_id": "A03",
+      "category": "authorization_diagnostic_overlap_F01",
+      "independent_evidence": false,
+      "passed": false,
+      "error": "mixed-response check failed: fn_groups=['red', 'blue', 'red'], svc_groups=['red', 'blue', 'red']"
+    }
+  ]
+}

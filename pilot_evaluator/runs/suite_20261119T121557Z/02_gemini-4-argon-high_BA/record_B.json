@@ -1,0 +1,46 @@
+{
+  "identification": {
+    "run_id": "02_gemini-4-argon-high_BA_B",
+    "task_id": "repo_pilot_v1",
+    "starting_commit": "544522b2ac7ebc234e04a31e06bd21f43b42120d",
+    "format": "B",
+    "pair_position": 1
+  },
+  "configuration": {
+    "environment": "antigravity",
+    "environment_version": "unrecorded",
+    "exact_model": "gemini-4-argon-high",
+    "settings": {
+      "order": "BA",
+      "dry_run": false
+    },
+    "time_limit_s": 120,
+    "date_iso": "2026-11-19T12:16:02.708480+00:00"
+  },
+  "artifacts": {
+    "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_B_structured.txt",
+    "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T121557Z\\02_gemini-4-argon-high_BA\\patch_B.diff",
+    "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T121557Z\\02_gemini-4-argon-high_BA\\agent_B.log",
+    "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T121557Z\\02_gemini-4-argon-high_BA\\eval_B.json"
+  },
+  "outcomes": {
+    "trial_classification": "no_patch",
+    "cases": {
+      "F01": false,
+      "F02": true,
+      "F03": true,
+      "A01": false,
+      "A02": false,
+      "A03": false
+    },
+    "independent_all_passed": false,
+    "all_passed": false,
+    "elapsed_agent_s": 0.0529,
+    "elapsed_evaluator_s": 1.3762
+  },
+  "anomalies": {
+    "error_description": "agent exited with code 1",
+    "patch_evaluable": false,
+    "included_in_analysis": true
+  }
+}

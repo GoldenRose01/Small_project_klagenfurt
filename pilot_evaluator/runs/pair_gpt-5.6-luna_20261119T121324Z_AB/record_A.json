@@ -1,0 +1,46 @@
+{
+  "identification": {
+    "run_id": "pair_20261119T121324Z_AB_A",
+    "task_id": "repo_pilot_v1",
+    "starting_commit": "55fa2d3d59fc8f9d3f324a624722db6fd71f597e",
+    "format": "A",
+    "pair_position": 1
+  },
+  "configuration": {
+    "environment": "codex",
+    "environment_version": "codex-cli 0.169.1",
+    "exact_model": "gpt-5.6-luna",
+    "settings": {
+      "order": "AB",
+      "dry_run": false
+    },
+    "time_limit_s": 120,
+    "date_iso": "2026-11-19T12:15:45.942509+00:00"
+  },
+  "artifacts": {
+    "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_A_prose.txt",
+    "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T121324Z_AB\\patch_A.diff",
+    "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T121324Z_AB\\agent_A.log",
+    "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T121324Z_AB\\eval_A.json"
+  },
+  "outcomes": {
+    "trial_classification": "no_patch",
+    "cases": {
+      "F01": false,
+      "F02": true,
+      "F03": true,
+      "A01": false,
+      "A02": false,
+      "A03": false
+    },
+    "independent_all_passed": false,
+    "all_passed": false,
+    "elapsed_agent_s": 140.3732,
+    "elapsed_evaluator_s": 1.1398
+  },
+  "anomalies": {
+    "error_description": "agent timed out after 120s",
+    "patch_evaluable": false,
+    "included_in_analysis": true
+  }
+}

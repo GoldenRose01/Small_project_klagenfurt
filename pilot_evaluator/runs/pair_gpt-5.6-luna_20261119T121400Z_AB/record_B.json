@@ -1,0 +1,46 @@
+{
+  "identification": {
+    "run_id": "pair_20261119T121400Z_AB_B",
+    "task_id": "repo_pilot_v1",
+    "starting_commit": "55fa2d3d59fc8f9d3f324a624722db6fd71f597e",
+    "format": "B",
+    "pair_position": 2
+  },
+  "configuration": {
+    "environment": "codex",
+    "environment_version": "codex-cli 0.169.1",
+    "exact_model": "gpt-5.6-luna",
+    "settings": {
+      "order": "AB",
+      "dry_run": false
+    },
+    "time_limit_s": 120,
+    "date_iso": "2026-11-19T12:18:46.422031+00:00"
+  },
+  "artifacts": {
+    "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_B_structured.txt",
+    "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T121400Z_AB\\patch_B.diff",
+    "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T121400Z_AB\\agent_B.log",
+    "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T121400Z_AB\\eval_B.json"
+  },
+  "outcomes": {
+    "trial_classification": "no_patch",
+    "cases": {
+      "F01": false,
+      "F02": true,
+      "F03": true,
+      "A01": false,
+      "A02": false,
+      "A03": false
+    },
+    "independent_all_passed": false,
+    "all_passed": false,
+    "elapsed_agent_s": 84.3324,
+    "elapsed_evaluator_s": 0.8656
+  },
+  "anomalies": {
+    "error_description": null,
+    "patch_evaluable": false,
+    "included_in_analysis": true
+  }
+}
