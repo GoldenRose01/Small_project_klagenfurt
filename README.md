@@ -39,21 +39,46 @@ The target codebase and the external evaluator are kept strictly separated so th
    python3 pilot_evaluator/run_pilot_pair.py --env codex --env-version "0.169.1" --model "gpt-6.1-sol" --order AB
    ```
 
-4. **Run a multi-model suite (alternating `AB` / `BA`):**
+4. **Run a multi-model suite in Google Antigravity (`agy`, alternating `AB` / `BA`):**
 
    ```bash
-   python3 pilot_evaluator/run_suite.py --env codex --models "gpt-6.2-sol,gpt-6.2-astra,gpt-6.1-sol,gpt-6-astra"
+   python3 pilot_evaluator/run_suite.py --env antigravity --models "gemini-4-neon-high,claude-opus-5-5-high,claude-sonnet-5-5-high"
    ```
 
-## Preliminary Repository Pilot Results (`codex-cli 0.169.1`)
+## Preliminary Repository Pilot Results
+
+All **29 valid runs** across both environments (**22/22** in OpenAI Codex, **7/7** in Google Antigravity) passed all six functional and authorization checks (`F01–F03`, `A01–A03`).
+
+### OpenAI Codex (`codex-cli 0.169.1`)
+
+- **Initial pilot** (`--full-auto`, `AB` order, `8/8 valid_pass`): `codex_pilot_01_gpt-6.2-sol_AB` through `codex_pilot_04_gpt-6-astra_AB`.
+- **Frozen-snapshot restart** (`--approve-for-me`, `AB` order, `14/14 valid_pass`): `codex_restart_01_gpt-6-luna_AB` through `codex_restart_07_gpt-5.6-luna_AB` (see [`pilot_evaluator/runs/restart_20261119_comparison.md`](pilot_evaluator/runs/restart_20261119_comparison.md)).
+
+| Series / Model | Order | A — Prose | B — Structured | Elapsed A (s) | Elapsed B (s) |
+| :--- | :--- | :--- | :--- | ---: | ---: |
+| Pilot: `gpt-6.2-sol` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 685.09 | 98.99 |
+| Pilot: `gpt-6.2-astra` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 75.39 | 78.11 |
+| Pilot: `gpt-6.1-sol` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 100.40 | 115.22 |
+| Pilot: `gpt-6-astra` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 106.08 | 119.23 |
+| Restart: `gpt-6-luna` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 39.79 | 34.93 |
+| Restart: `gpt-6.1-sol` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 62.63 | 75.61 |
+| Restart: `gpt-6.2-sol` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 69.46 | 79.31 |
+| Restart: `gpt-6.2-astra` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 46.02 | 58.73 |
+| Restart: `gpt-6-astra` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 58.35 | 59.78 |
+| Restart: `gpt-6-sol` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 103.12 | 78.95 |
+| Restart: `gpt-5.6-luna` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 57.07 | 67.93 |
+
+### Google Antigravity (`agy 1.5.12`)
+
+Archived in [`pilot_evaluator/runs/antigravity_suite_20261119/`](pilot_evaluator/runs/antigravity_suite_20261119/suite_summary.md) (`7/7` valid runs passed; `no_patch` runs caused by CLI model-routing errors, HTTP 503 capacity limits, or 120 s timeout are excluded from the valid denominator).
 
 | Model | Order | A — Prose | B — Structured | Elapsed A (s) | Elapsed B (s) |
 | :--- | :--- | :--- | :--- | ---: | ---: |
-| `gpt-6.2-sol` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 685.09 | 98.99 |
-| `gpt-6.2-astra` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 75.39 | 78.11 |
-| `gpt-6.1-sol` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 100.40 | 115.22 |
-| `gpt-6-astra` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 106.08 | 119.23 |
+| `gemini-4-neon-high` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 150.60 | 250.71 |
+| `claude-opus-5-5-high` | AB | `valid_pass` (6/6) | `valid_pass` (6/6) | 74.89 | 72.18 |
+| `claude-sonnet-5-5-high` | BA | `valid_pass` (6/6) | `valid_pass` (6/6) | 45.47 | 41.73 |
+| `gemini-3.8-flash-high` | BA | `valid_pass` (6/6) | Infra fail (`no_patch`) | 364.35 | 8.33 |
 
-- **Technical feasibility:** Confirmed (`8/8 valid_pass` across all functional and authorization checks).
-- **Excluded runs:** Earlier runs blocked by `read-only` sandbox defaults, Windows/AppContainer write restrictions (including `gpt-6-luna`), or missing local `agy` CLI are retained in `pilot_evaluator/runs/` and excluded from the valid denominator per Appendix D.
-- **Next step:** Alternate `BA` order and introduce a more discriminating multi-file / multi-constraint task (adapted from security-oriented benchmarks such as **SALLM** or **SecCodePLT**) to address the observed ceiling effect.
+- **Technical feasibility:** Confirmed (`29/29 valid_pass` across both environments and both prompt formats).
+- **Next step:** Introduce a more discriminating multi-file / multi-constraint task (adapted from security-oriented benchmarks such as **SALLM** or **SecCodePLT**) to overcome the single-file ceiling effect.
+
