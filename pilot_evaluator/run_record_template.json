@@ -1,0 +1,39 @@
+{
+  "identification": {
+    "run_id": "",
+    "task_id": "repo_pilot_v1",
+    "starting_commit": "",
+    "format": "A_or_B",
+    "pair_position": "1_or_2"
+  },
+  "configuration": {
+    "environment": "",
+    "environment_version": "",
+    "exact_model": "",
+    "settings": {},
+    "permissions": "",
+    "time_limit_s": 120,
+    "date_iso": ""
+  },
+  "artifacts": {
+    "prompt_file": "",
+    "patch_file": "",
+    "actions_summary": "",
+    "evaluator_output_file": ""
+  },
+  "outcomes": {
+    "trial_classification": "valid_pass | valid_fail | no_patch | infrastructure_failure",
+    "cases": {},
+    "all_passed": false,
+    "elapsed_agent_s": null,
+    "elapsed_evaluator_s": null,
+    "tokens": null,
+    "cache_info": null
+  },
+  "anomalies": {
+    "error_description": null,
+    "patch_evaluable": true,
+    "included_in_analysis": true,
+    "notes": ""
+  }
+}
