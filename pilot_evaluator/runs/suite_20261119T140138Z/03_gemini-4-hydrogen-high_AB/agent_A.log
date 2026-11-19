@@ -1,6 +1,0 @@
-EXIT: 1
---- STDOUT ---
-
---- STDERR ---
-error: invalid model selection (--model "gemini-4-hydrogen-high" --effort ""): model gemini-4-hydrogen-high is not recognized as a known model or custom model in settings
-
