@@ -68,7 +68,28 @@ def _run_single(
     prompt_text = prompt_file.read_text(encoding="utf-8")
 
     work_repo = run_dir / f"repo_{condition}"
-    shutil.copytree(args.repo, work_repo)
+    shutil.copytree(
+        args.repo,
+        work_repo,
+        ignore=shutil.ignore_patterns(".git", "__pycache__", "*.pyc"),
+    )
+    subprocess.run(["git", "init"], cwd=work_repo, check=True, capture_output=True)
+    subprocess.run(["git", "add", "-A"], cwd=work_repo, check=True, capture_output=True)
+    subprocess.run(
+        [
+            "git",
+            "-c",
+            "user.name=pilot",
+            "-c",
+            "user.email=pilot@local",
+            "commit",
+            "-m",
+            "baseline",
+        ],
+        cwd=work_repo,
+        check=True,
+        capture_output=True,
+    )
 
     patch_file = run_dir / f"patch_{condition}.diff"
     eval_file = run_dir / f"eval_{condition}.json"

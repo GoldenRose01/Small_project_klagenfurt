@@ -15,7 +15,7 @@ from pathlib import Path
 
 from evaluate import evaluate_repo
 
-PILOT_REPO = Path("/home/antigravity/pilot_repo")
+PILOT_REPO = Path(__file__).resolve().parent.parent / "pilot_repo"
 
 BLANKET_DENIAL_POLICY = '''"""Visibility policy (blanket-denial control)."""
 
