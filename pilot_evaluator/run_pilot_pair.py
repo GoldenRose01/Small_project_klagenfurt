@@ -114,7 +114,7 @@ def _run_single(
             else:
                 raise ValueError(f"Unsupported --env {args.env} without --cmd")
 
-        cmd = cmd_template.replace("{prompt}", json.dumps(prompt_text))
+        cmd = cmd_template.replace("{model}", args.model).replace("{prompt}", json.dumps(prompt_text))
         t0 = time.perf_counter()
         try:
             proc = subprocess.run(
