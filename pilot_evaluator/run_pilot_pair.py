@@ -215,7 +215,8 @@ def main() -> None:
         sys.exit(2)
 
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    run_dir = RUNS_DIR / f"pair_{stamp}_{args.order}"
+    model_slug = "".join(c if c.isalnum() or c in "._-" else "_" for c in args.model).strip("_")
+    run_dir = RUNS_DIR / f"pair_{stamp}_{model_slug}_{args.order}"
     run_dir.mkdir(parents=True, exist_ok=True)
 
     starting_commit = _git_head(args.repo)
