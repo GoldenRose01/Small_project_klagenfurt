@@ -1,0 +1,646 @@
+[
+  {
+    "identification": {
+      "run_id": "01_gemini-4-neon-high_AB_A",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "A",
+      "pair_position": 1
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "gemini-4-neon-high",
+      "settings": {
+        "order": "AB",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:04:11.038457+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_A_prose.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\01_gemini-4-neon-high_AB\\patch_A.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\01_gemini-4-neon-high_AB\\agent_A.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\01_gemini-4-neon-high_AB\\eval_A.json"
+    },
+    "outcomes": {
+      "trial_classification": "valid_pass",
+      "cases": {
+        "F01": true,
+        "F02": true,
+        "F03": true,
+        "A01": true,
+        "A02": true,
+        "A03": true
+      },
+      "independent_all_passed": true,
+      "all_passed": true,
+      "elapsed_agent_s": 150.6013,
+      "elapsed_evaluator_s": 1.0838
+    },
+    "anomalies": {
+      "error_description": "agent timed out after 120s",
+      "patch_evaluable": true,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "01_gemini-4-neon-high_AB_B",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "B",
+      "pair_position": 2
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "gemini-4-neon-high",
+      "settings": {
+        "order": "AB",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:08:24.227850+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_B_structured.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\01_gemini-4-neon-high_AB\\patch_B.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\01_gemini-4-neon-high_AB\\agent_B.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\01_gemini-4-neon-high_AB\\eval_B.json"
+    },
+    "outcomes": {
+      "trial_classification": "valid_pass",
+      "cases": {
+        "F01": true,
+        "F02": true,
+        "F03": true,
+        "A01": true,
+        "A02": true,
+        "A03": true
+      },
+      "independent_all_passed": true,
+      "all_passed": true,
+      "elapsed_agent_s": 250.7142,
+      "elapsed_evaluator_s": 1.7181
+    },
+    "anomalies": {
+      "error_description": "agent timed out after 120s",
+      "patch_evaluable": true,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "02_gemini-4-argon-high_BA_B",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "B",
+      "pair_position": 1
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "gemini-4-argon-high",
+      "settings": {
+        "order": "BA",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:25:03.768054+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_B_structured.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\02_gemini-4-argon-high_BA\\patch_B.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\02_gemini-4-argon-high_BA\\agent_B.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\02_gemini-4-argon-high_BA\\eval_B.json"
+    },
+    "outcomes": {
+      "trial_classification": "no_patch",
+      "cases": {
+        "F01": false,
+        "F02": true,
+        "F03": true,
+        "A01": false,
+        "A02": false,
+        "A03": false
+      },
+      "independent_all_passed": false,
+      "all_passed": false,
+      "elapsed_agent_s": 997.0567,
+      "elapsed_evaluator_s": 1.8904
+    },
+    "anomalies": {
+      "error_description": "agent timed out after 120s",
+      "patch_evaluable": false,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "02_gemini-4-argon-high_BA_A",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "A",
+      "pair_position": 2
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "gemini-4-argon-high",
+      "settings": {
+        "order": "BA",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:25:14.200889+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_A_prose.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\02_gemini-4-argon-high_BA\\patch_A.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\02_gemini-4-argon-high_BA\\agent_A.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\02_gemini-4-argon-high_BA\\eval_A.json"
+    },
+    "outcomes": {
+      "trial_classification": "no_patch",
+      "cases": {
+        "F01": false,
+        "F02": true,
+        "F03": true,
+        "A01": false,
+        "A02": false,
+        "A03": false
+      },
+      "independent_all_passed": false,
+      "all_passed": false,
+      "elapsed_agent_s": 8.8018,
+      "elapsed_evaluator_s": 1.1205
+    },
+    "anomalies": {
+      "error_description": "agent exited with code 1",
+      "patch_evaluable": false,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "03_gemini-4-hydrogen-high_AB_A",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "A",
+      "pair_position": 1
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "gemini-4-hydrogen-high",
+      "settings": {
+        "order": "AB",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:25:24.220522+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_A_prose.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\03_gemini-4-hydrogen-high_AB\\patch_A.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\03_gemini-4-hydrogen-high_AB\\agent_A.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\03_gemini-4-hydrogen-high_AB\\eval_A.json"
+    },
+    "outcomes": {
+      "trial_classification": "no_patch",
+      "cases": {
+        "F01": false,
+        "F02": true,
+        "F03": true,
+        "A01": false,
+        "A02": false,
+        "A03": false
+      },
+      "independent_all_passed": false,
+      "all_passed": false,
+      "elapsed_agent_s": 8.29,
+      "elapsed_evaluator_s": 1.1527
+    },
+    "anomalies": {
+      "error_description": "agent exited with code 1",
+      "patch_evaluable": false,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "03_gemini-4-hydrogen-high_AB_B",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "B",
+      "pair_position": 2
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "gemini-4-hydrogen-high",
+      "settings": {
+        "order": "AB",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:25:34.085839+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_B_structured.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\03_gemini-4-hydrogen-high_AB\\patch_B.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\03_gemini-4-hydrogen-high_AB\\agent_B.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\03_gemini-4-hydrogen-high_AB\\eval_B.json"
+    },
+    "outcomes": {
+      "trial_classification": "no_patch",
+      "cases": {
+        "F01": false,
+        "F02": true,
+        "F03": true,
+        "A01": false,
+        "A02": false,
+        "A03": false
+      },
+      "independent_all_passed": false,
+      "all_passed": false,
+      "elapsed_agent_s": 8.3442,
+      "elapsed_evaluator_s": 1.0912
+    },
+    "anomalies": {
+      "error_description": "agent exited with code 1",
+      "patch_evaluable": false,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "04_gemini-3.8-flash-high_BA_B",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "B",
+      "pair_position": 1
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "gemini-3.8-flash-high",
+      "settings": {
+        "order": "BA",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:25:43.985354+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_B_structured.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\04_gemini-3.8-flash-high_BA\\patch_B.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\04_gemini-3.8-flash-high_BA\\agent_B.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\04_gemini-3.8-flash-high_BA\\eval_B.json"
+    },
+    "outcomes": {
+      "trial_classification": "no_patch",
+      "cases": {
+        "F01": false,
+        "F02": true,
+        "F03": true,
+        "A01": false,
+        "A02": false,
+        "A03": false
+      },
+      "independent_all_passed": false,
+      "all_passed": false,
+      "elapsed_agent_s": 8.3274,
+      "elapsed_evaluator_s": 1.0886
+    },
+    "anomalies": {
+      "error_description": "agent exited with code 1",
+      "patch_evaluable": false,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "04_gemini-3.8-flash-high_BA_A",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "A",
+      "pair_position": 2
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "gemini-3.8-flash-high",
+      "settings": {
+        "order": "BA",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:31:49.341904+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_A_prose.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\04_gemini-3.8-flash-high_BA\\patch_A.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\04_gemini-3.8-flash-high_BA\\agent_A.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\04_gemini-3.8-flash-high_BA\\eval_A.json"
+    },
+    "outcomes": {
+      "trial_classification": "valid_pass",
+      "cases": {
+        "F01": true,
+        "F02": true,
+        "F03": true,
+        "A01": true,
+        "A02": true,
+        "A03": true
+      },
+      "independent_all_passed": true,
+      "all_passed": true,
+      "elapsed_agent_s": 364.3469,
+      "elapsed_evaluator_s": 0.8799
+    },
+    "anomalies": {
+      "error_description": "agent timed out after 120s",
+      "patch_evaluable": true,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "05_claude-opus-5-5-high_AB_A",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "A",
+      "pair_position": 1
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "claude-opus-5-5-high",
+      "settings": {
+        "order": "AB",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:33:05.510677+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_A_prose.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\05_claude-opus-5-5-high_AB\\patch_A.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\05_claude-opus-5-5-high_AB\\agent_A.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\05_claude-opus-5-5-high_AB\\eval_A.json"
+    },
+    "outcomes": {
+      "trial_classification": "valid_pass",
+      "cases": {
+        "F01": true,
+        "F02": true,
+        "F03": true,
+        "A01": true,
+        "A02": true,
+        "A03": true
+      },
+      "independent_all_passed": true,
+      "all_passed": true,
+      "elapsed_agent_s": 74.8884,
+      "elapsed_evaluator_s": 0.885
+    },
+    "anomalies": {
+      "error_description": null,
+      "patch_evaluable": true,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "05_claude-opus-5-5-high_AB_B",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "B",
+      "pair_position": 2
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "claude-opus-5-5-high",
+      "settings": {
+        "order": "AB",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:34:18.998496+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_B_structured.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\05_claude-opus-5-5-high_AB\\patch_B.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\05_claude-opus-5-5-high_AB\\agent_B.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\05_claude-opus-5-5-high_AB\\eval_B.json"
+    },
+    "outcomes": {
+      "trial_classification": "valid_pass",
+      "cases": {
+        "F01": true,
+        "F02": true,
+        "F03": true,
+        "A01": true,
+        "A02": true,
+        "A03": true
+      },
+      "independent_all_passed": true,
+      "all_passed": true,
+      "elapsed_agent_s": 72.1779,
+      "elapsed_evaluator_s": 0.9016
+    },
+    "anomalies": {
+      "error_description": null,
+      "patch_evaluable": true,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "06_claude-sonnet-5-5-high_BA_B",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "B",
+      "pair_position": 1
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "claude-sonnet-5-5-high",
+      "settings": {
+        "order": "BA",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:35:02.181733+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_B_structured.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\06_claude-sonnet-5-5-high_BA\\patch_B.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\06_claude-sonnet-5-5-high_BA\\agent_B.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\06_claude-sonnet-5-5-high_BA\\eval_B.json"
+    },
+    "outcomes": {
+      "trial_classification": "valid_pass",
+      "cases": {
+        "F01": true,
+        "F02": true,
+        "F03": true,
+        "A01": true,
+        "A02": true,
+        "A03": true
+      },
+      "independent_all_passed": true,
+      "all_passed": true,
+      "elapsed_agent_s": 41.7319,
+      "elapsed_evaluator_s": 1.0357
+    },
+    "anomalies": {
+      "error_description": null,
+      "patch_evaluable": true,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "06_claude-sonnet-5-5-high_BA_A",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "A",
+      "pair_position": 2
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "claude-sonnet-5-5-high",
+      "settings": {
+        "order": "BA",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:35:49.035713+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_A_prose.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\06_claude-sonnet-5-5-high_BA\\patch_A.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\06_claude-sonnet-5-5-high_BA\\agent_A.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\06_claude-sonnet-5-5-high_BA\\eval_A.json"
+    },
+    "outcomes": {
+      "trial_classification": "valid_pass",
+      "cases": {
+        "F01": true,
+        "F02": true,
+        "F03": true,
+        "A01": true,
+        "A02": true,
+        "A03": true
+      },
+      "independent_all_passed": true,
+      "all_passed": true,
+      "elapsed_agent_s": 45.4728,
+      "elapsed_evaluator_s": 0.9554
+    },
+    "anomalies": {
+      "error_description": null,
+      "patch_evaluable": true,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "07_gpt-oss-120b-medium_AB_A",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "A",
+      "pair_position": 1
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "gpt-oss-120b-medium",
+      "settings": {
+        "order": "AB",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:36:55.443829+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_A_prose.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\07_gpt-oss-120b-medium_AB\\patch_A.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\07_gpt-oss-120b-medium_AB\\agent_A.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\07_gpt-oss-120b-medium_AB\\eval_A.json"
+    },
+    "outcomes": {
+      "trial_classification": "no_patch",
+      "cases": {
+        "F01": false,
+        "F02": true,
+        "F03": true,
+        "A01": false,
+        "A02": false,
+        "A03": false
+      },
+      "independent_all_passed": false,
+      "all_passed": false,
+      "elapsed_agent_s": 64.9968,
+      "elapsed_evaluator_s": 0.9039
+    },
+    "anomalies": {
+      "error_description": "agent exited with code 3",
+      "patch_evaluable": false,
+      "included_in_analysis": true
+    }
+  },
+  {
+    "identification": {
+      "run_id": "07_gpt-oss-120b-medium_AB_B",
+      "task_id": "repo_pilot_v1",
+      "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+      "format": "B",
+      "pair_position": 2
+    },
+    "configuration": {
+      "environment": "antigravity",
+      "environment_version": "1.5.12",
+      "exact_model": "gpt-oss-120b-medium",
+      "settings": {
+        "order": "AB",
+        "dry_run": false
+      },
+      "time_limit_s": 120,
+      "date_iso": "2026-11-19T14:37:30.867623+00:00"
+    },
+    "artifacts": {
+      "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_B_structured.txt",
+      "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\07_gpt-oss-120b-medium_AB\\patch_B.diff",
+      "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\07_gpt-oss-120b-medium_AB\\agent_B.log",
+      "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\07_gpt-oss-120b-medium_AB\\eval_B.json"
+    },
+    "outcomes": {
+      "trial_classification": "no_patch",
+      "cases": {
+        "F01": false,
+        "F02": true,
+        "F03": true,
+        "A01": false,
+        "A02": false,
+        "A03": false
+      },
+      "independent_all_passed": false,
+      "all_passed": false,
+      "elapsed_agent_s": 34.0577,
+      "elapsed_evaluator_s": 1.0323
+    },
+    "anomalies": {
+      "error_description": "agent exited with code 3",
+      "patch_evaluable": false,
+      "included_in_analysis": true
+    }
+  }
+]

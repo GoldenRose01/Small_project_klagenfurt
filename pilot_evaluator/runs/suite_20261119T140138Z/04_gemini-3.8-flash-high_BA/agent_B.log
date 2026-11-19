@@ -1,0 +1,6 @@
+EXIT: 1
+--- STDOUT ---
+
+--- STDERR ---
+error: invalid model selection (--model "gemini-3.8-flash-high" --effort ""): model gemini-3.8-flash-high is not recognized as a known model or custom model in settings
+

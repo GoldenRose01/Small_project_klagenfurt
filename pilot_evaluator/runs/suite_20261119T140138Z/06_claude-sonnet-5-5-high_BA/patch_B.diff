@@ -1,0 +1,101 @@
+diff --git a/src/reporting/__pycache__/__init__.cpython-313.pyc b/src/reporting/__pycache__/__init__.cpython-313.pyc
+new file mode 100644
+index 0000000..13524b3
+Binary files /dev/null and b/src/reporting/__pycache__/__init__.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/models.cpython-313.pyc b/src/reporting/__pycache__/models.cpython-313.pyc
+new file mode 100644
+index 0000000..c111a98
+Binary files /dev/null and b/src/reporting/__pycache__/models.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/policy.cpython-313.pyc b/src/reporting/__pycache__/policy.cpython-313.pyc
+new file mode 100644
+index 0000000..a1ab19a
+Binary files /dev/null and b/src/reporting/__pycache__/policy.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/sample_data.cpython-313.pyc b/src/reporting/__pycache__/sample_data.cpython-313.pyc
+new file mode 100644
+index 0000000..6918f13
+Binary files /dev/null and b/src/reporting/__pycache__/sample_data.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/service.cpython-313.pyc b/src/reporting/__pycache__/service.cpython-313.pyc
+new file mode 100644
+index 0000000..5561b57
+Binary files /dev/null and b/src/reporting/__pycache__/service.cpython-313.pyc differ
+diff --git a/src/reporting/policy.py b/src/reporting/policy.py
+index 525ddae..8b13874 100644
+--- a/src/reporting/policy.py
++++ b/src/reporting/policy.py
+@@ -1,12 +1,16 @@
+-"""Visibility policy for reports."""
+-
+-from collections.abc import Iterable
+-from .models import Report
+-
+-
+-def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
+-    """Return reports visible to a user with the given group memberships.
+-
+-    Starting baseline: returns all reports without applying group filtering.
+-    """
+-    return list(reports)
++ï»¿"""Visibility policy for reports."""
++
++from collections.abc import Iterable
++from .models import Report
++
++
++def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
++    """Return reports whose group is one of `user_groups`.
++
++    The original order of `reports` is preserved and inputs are not mutated.
++    Returns an empty list if `user_groups` or `reports` is empty.
++    """
++    allowed = set(user_groups)  # materialize once (also supports iterators)
++    if not allowed or not reports:
++        return []
++    return [r for r in reports if r.get("group") in allowed]
+diff --git a/tests/__pycache__/test_smoke.cpython-313.pyc b/tests/__pycache__/test_smoke.cpython-313.pyc
+new file mode 100644
+index 0000000..e4a0e32
+Binary files /dev/null and b/tests/__pycache__/test_smoke.cpython-313.pyc differ
+diff --git a/tests/test_smoke.py b/tests/test_smoke.py
+index 8c56f38..fbe9076 100644
+--- a/tests/test_smoke.py
++++ b/tests/test_smoke.py
+@@ -1,5 +1,6 @@
+-"""Baseline smoke tests verifying repository startup and public interfaces."""
++ï»¿"""Baseline smoke tests verifying repository startup and public interfaces."""
+ 
++import copy
+ import unittest
+ 
+ from reporting import list_user_reports, visible_reports
+@@ -14,7 +15,31 @@ class SmokeTests(unittest.TestCase):
+     def test_entry_points_return_lists(self) -> None:
+         self.assertIsInstance(visible_reports(["alpha"], SAMPLE_REPORTS), list)
+         self.assertIsInstance(list_user_reports(SAMPLE_USERS[0], SAMPLE_REPORTS), list)
++
++    def test_visibility_filters_by_group_and_preserves_order(self) -> None:
++        reports = [
++            {"id": "1", "group": "b", "title": "B1"},
++            {"id": "2", "group": "a", "title": "A1"},
++            {"id": "3", "group": "c", "title": "C1"},
++            {"id": "4", "group": "a", "title": "A2"},
++        ]
++        groups = ["a", "b"]
++        reports_copy = copy.deepcopy(reports)
++        result = visible_reports(groups, reports)
++        self.assertEqual([r["id"] for r in result], ["1", "2", "4"])
++        self.assertEqual(reports, reports_copy)
++        self.assertEqual(groups, ["a", "b"])
++
++    def test_empty_inputs_return_empty_list(self) -> None:
++        self.assertEqual(visible_reports([], SAMPLE_REPORTS), [])
++        self.assertEqual(visible_reports(["alpha"], []), [])
++        self.assertEqual(list_user_reports({"id": "x", "groups": []}, SAMPLE_REPORTS), [])
++
++    def test_list_user_reports_uses_user_groups(self) -> None:
++        self.assertEqual([r["id"] for r in list_user_reports(SAMPLE_USERS[0], SAMPLE_REPORTS)], ["r1"])
++        self.assertEqual([r["id"] for r in list_user_reports(SAMPLE_USERS[1], SAMPLE_REPORTS)], ["r1", "r2"])
+ 
+ 
+ if __name__ == "__main__":
+     unittest.main()
++

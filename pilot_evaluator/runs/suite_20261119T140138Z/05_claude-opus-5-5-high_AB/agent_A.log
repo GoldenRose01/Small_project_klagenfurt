@@ -1,0 +1,19 @@
+EXIT: 0
+--- STDOUT ---
+Now the service guard and tests for the new behavior.
+Users now only see reports from their own groups. All 17 tests pass: the 2 original smoke tests and 15 new ones.
+
+**What changed**
+- **[policy.py](file:///C:/Users/franc/OneDrive/Documenti/GitHub/Small_project_klagenfurt/pilot_evaluator/runs/suite_20261119T140138Z/05_claude-opus-5-5-high_AB/repo_A/src/reporting/policy.py)**: `visible_reports(user_groups, reports)` returns a new list of only the reports whose `group` exactly matches (case-sensitive) one of `user_groups`, in their original order.
+  - It returns `[]` when `user_groups` or `reports` is empty, and also when either is `None`.
+  - Reports with a missing or non-string `group` are always hidden.
+  - Inputs are never modified, and `user_groups` can be any iterable, including a generator.
+- **[service.py](file:///C:/Users/franc/OneDrive/Documenti/GitHub/Small_project_klagenfurt/pilot_evaluator/runs/suite_20261119T140138Z/05_claude-opus-5-5-high_AB/repo_A/src/reporting/service.py)**: `list_user_reports(user, reports)` keeps its signature. A user whose `groups` is missing, empty or `None` sees no reports.
+- **[test_visibility.py](file:///C:/Users/franc/OneDrive/Documenti/GitHub/Small_project_klagenfurt/pilot_evaluator/runs/suite_20261119T140138Z/05_claude-opus-5-5-high_AB/repo_A/tests/test_visibility.py)** (new): tests for filtering, ordering, empty and `None` inputs, exact matching, malformed reports, the sample users and the no-mutation rule.
+
+**Two choices you might want to change**
+- **A plain string for `user_groups` raises `TypeError`.** Without this check, `visible_reports("alpha", ...)` would treat each letter as a group, so a report in group `"a"` would become visible. If you'd prefer a bare string to count as one group name, that's a one-line change.
+- **Results contain the original report dictionaries, not copies.** This matches how the code behaved before. Nothing in the input is changed, but if a caller later edits a returned report, the edit shows up in the input list too.
+
+--- STDERR ---
+

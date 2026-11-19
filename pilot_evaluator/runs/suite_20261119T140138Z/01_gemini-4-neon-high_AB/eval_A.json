@@ -1,0 +1,50 @@
+{
+  "repo_path": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\01_gemini-4-neon-high_AB\\repo_A",
+  "all_passed": true,
+  "independent_all_passed": true,
+  "elapsed_s": 1.0838,
+  "cases": [
+    {
+      "case_id": "F01",
+      "category": "functional",
+      "independent_evidence": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "case_id": "F02",
+      "category": "functional",
+      "independent_evidence": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "case_id": "F03",
+      "category": "functional",
+      "independent_evidence": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "case_id": "A01",
+      "category": "authorization",
+      "independent_evidence": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "case_id": "A02",
+      "category": "authorization",
+      "independent_evidence": true,
+      "passed": true,
+      "error": ""
+    },
+    {
+      "case_id": "A03",
+      "category": "authorization_diagnostic_overlap_F01",
+      "independent_evidence": false,
+      "passed": true,
+      "error": ""
+    }
+  ]
+}

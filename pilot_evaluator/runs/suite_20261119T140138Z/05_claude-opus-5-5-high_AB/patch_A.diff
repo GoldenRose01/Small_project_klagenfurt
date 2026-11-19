@@ -1,0 +1,224 @@
+diff --git a/src/reporting/__pycache__/__init__.cpython-313.pyc b/src/reporting/__pycache__/__init__.cpython-313.pyc
+new file mode 100644
+index 0000000..8ef9c9a
+Binary files /dev/null and b/src/reporting/__pycache__/__init__.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/models.cpython-313.pyc b/src/reporting/__pycache__/models.cpython-313.pyc
+new file mode 100644
+index 0000000..76940ab
+Binary files /dev/null and b/src/reporting/__pycache__/models.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/policy.cpython-313.pyc b/src/reporting/__pycache__/policy.cpython-313.pyc
+new file mode 100644
+index 0000000..29c3d00
+Binary files /dev/null and b/src/reporting/__pycache__/policy.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/sample_data.cpython-313.pyc b/src/reporting/__pycache__/sample_data.cpython-313.pyc
+new file mode 100644
+index 0000000..4996cf9
+Binary files /dev/null and b/src/reporting/__pycache__/sample_data.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/service.cpython-313.pyc b/src/reporting/__pycache__/service.cpython-313.pyc
+new file mode 100644
+index 0000000..b1663da
+Binary files /dev/null and b/src/reporting/__pycache__/service.cpython-313.pyc differ
+diff --git a/src/reporting/policy.py b/src/reporting/policy.py
+index 525ddae..36af227 100644
+--- a/src/reporting/policy.py
++++ b/src/reporting/policy.py
+@@ -1,12 +1,43 @@
+-"""Visibility policy for reports."""
+-
+-from collections.abc import Iterable
+-from .models import Report
+-
+-
+-def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
+-    """Return reports visible to a user with the given group memberships.
+-
+-    Starting baseline: returns all reports without applying group filtering.
+-    """
+-    return list(reports)
++"""Visibility policy for reports."""
++
++from collections.abc import Iterable
++from typing import Optional
++
++from .models import Report
++
++
++def visible_reports(
++    user_groups: Optional[Iterable[str]], reports: Optional[list[Report]]
++) -> list[Report]:
++    """Return reports visible to a user with the given group memberships.
++
++    A report is visible only if its ``group`` value is exactly one of
++    ``user_groups`` (case-sensitive string match). Visibility is deny-by-default:
++
++    - an empty (or ``None``) ``user_groups`` yields an empty list;
++    - an empty (or ``None``) ``reports`` yields an empty list;
++    - reports with a missing or non-string ``group`` are never visible.
++
++    The result is a new list that preserves the original order of ``reports``.
++    Neither argument is mutated (``user_groups`` is consumed exactly once, so
++    one-shot iterables such as generators are supported).
++
++    Raises:
++        TypeError: if ``user_groups`` is a single string rather than a
++            collection of group names, to avoid accidentally treating each
++            character as a group.
++    """
++    if isinstance(user_groups, (str, bytes)):
++        raise TypeError("user_groups must be an iterable of group names, not a string")
++    if not user_groups or not reports:
++        return []
++
++    allowed = {group for group in user_groups if isinstance(group, str)}
++    if not allowed:
++        return []
++
++    return [
++        report
++        for report in reports
++        if isinstance(report.get("group"), str) and report["group"] in allowed
++    ]
+diff --git a/src/reporting/service.py b/src/reporting/service.py
+index a2d1d93..8c24be7 100644
+--- a/src/reporting/service.py
++++ b/src/reporting/service.py
+@@ -1,9 +1,13 @@
+-"""Public entry point for listing visible reports for a user."""
+-
+-from .models import Report, User
+-from .policy import visible_reports
+-
+-
+-def list_user_reports(user: User, reports: list[Report]) -> list[Report]:
+-    """Return the reports visible to `user` in their original order."""
+-    return visible_reports(user.get("groups", []), reports)
++"""Public entry point for listing visible reports for a user."""
++
++from .models import Report, User
++from .policy import visible_reports
++
++
++def list_user_reports(user: User, reports: list[Report]) -> list[Report]:
++    """Return the reports visible to `user` in their original order.
++
++    Only reports whose group is one of ``user["groups"]`` are returned. A user
++    with no ``groups`` key (or an empty/``None`` value) sees no reports.
++    """
++    return visible_reports(user.get("groups") or [], reports)
+diff --git a/tests/__pycache__/test_smoke.cpython-313.pyc b/tests/__pycache__/test_smoke.cpython-313.pyc
+new file mode 100644
+index 0000000..c604aa6
+Binary files /dev/null and b/tests/__pycache__/test_smoke.cpython-313.pyc differ
+diff --git a/tests/__pycache__/test_visibility.cpython-313.pyc b/tests/__pycache__/test_visibility.cpython-313.pyc
+new file mode 100644
+index 0000000..63589e6
+Binary files /dev/null and b/tests/__pycache__/test_visibility.cpython-313.pyc differ
+diff --git a/tests/test_visibility.py b/tests/test_visibility.py
+new file mode 100644
+index 0000000..25a572b
+--- /dev/null
++++ b/tests/test_visibility.py
+@@ -0,0 +1,103 @@
++"""Tests for group-based report visibility."""
++
++import copy
++import unittest
++
++from reporting import list_user_reports, visible_reports
++from reporting.sample_data import SAMPLE_REPORTS, SAMPLE_USERS
++
++REPORTS = [
++    {"id": "r1", "group": "alpha", "title": "A1"},
++    {"id": "r2", "group": "beta", "title": "B1"},
++    {"id": "r3", "group": "gamma", "title": "G1"},
++    {"id": "r4", "group": "alpha", "title": "A2"},
++    {"id": "r5", "group": "beta", "title": "B2"},
++]
++
++
++def ids(reports):
++    return [r["id"] for r in reports]
++
++
++class VisibleReportsTests(unittest.TestCase):
++    def test_filters_by_single_group(self) -> None:
++        self.assertEqual(ids(visible_reports(["alpha"], REPORTS)), ["r1", "r4"])
++
++    def test_filters_by_multiple_groups_preserving_order(self) -> None:
++        # Group order in user_groups must not affect output order.
++        self.assertEqual(
++            ids(visible_reports(["beta", "alpha"], REPORTS)), ["r1", "r2", "r4", "r5"]
++        )
++
++    def test_empty_user_groups(self) -> None:
++        self.assertEqual(visible_reports([], REPORTS), [])
++
++    def test_empty_reports(self) -> None:
++        self.assertEqual(visible_reports(["alpha"], []), [])
++
++    def test_none_inputs_return_empty(self) -> None:
++        self.assertEqual(visible_reports(None, REPORTS), [])
++        self.assertEqual(visible_reports(["alpha"], None), [])
++
++    def test_no_matching_group(self) -> None:
++        self.assertEqual(visible_reports(["delta"], REPORTS), [])
++
++    def test_exact_case_sensitive_match(self) -> None:
++        self.assertEqual(visible_reports(["Alpha", "alph", "alpha "], REPORTS), [])
++
++    def test_accepts_any_iterable(self) -> None:
++        self.assertEqual(ids(visible_reports(("gamma",), REPORTS)), ["r3"])
++        self.assertEqual(ids(visible_reports({"gamma"}, REPORTS)), ["r3"])
++        self.assertEqual(ids(visible_reports((g for g in ["gamma"]), REPORTS)), ["r3"])
++
++    def test_string_user_groups_rejected(self) -> None:
++        with self.assertRaises(TypeError):
++            visible_reports("alpha", REPORTS)
++
++    def test_malformed_reports_are_hidden(self) -> None:
++        reports = [
++            {"id": "x1", "title": "no group"},
++            {"id": "x2", "group": None, "title": "null group"},
++            {"id": "x3", "group": ["alpha"], "title": "list group"},
++            {"id": "x4", "group": "alpha", "title": "ok"},
++        ]
++        self.assertEqual(ids(visible_reports(["alpha"], reports)), ["x4"])
++
++    def test_inputs_not_mutated(self) -> None:
++        groups = ["beta", "alpha"]
++        reports = copy.deepcopy(REPORTS)
++        groups_before = list(groups)
++        reports_before = copy.deepcopy(reports)
++        result = visible_reports(groups, reports)
++        self.assertEqual(groups, groups_before)
++        self.assertEqual(reports, reports_before)
++        self.assertIsNot(result, reports)
++
++    def test_returns_new_list_even_when_all_visible(self) -> None:
++        reports = [{"id": "r1", "group": "alpha", "title": "A1"}]
++        result = visible_reports(["alpha"], reports)
++        self.assertEqual(result, reports)
++        self.assertIsNot(result, reports)
++
++
++class ListUserReportsTests(unittest.TestCase):
++    def test_sample_users(self) -> None:
++        self.assertEqual(ids(list_user_reports(SAMPLE_USERS[0], SAMPLE_REPORTS)), ["r1"])
++        self.assertEqual(
++            ids(list_user_reports(SAMPLE_USERS[1], SAMPLE_REPORTS)), ["r1", "r2"]
++        )
++
++    def test_user_without_groups(self) -> None:
++        self.assertEqual(list_user_reports({"id": "u", "groups": []}, REPORTS), [])
++        self.assertEqual(list_user_reports({"id": "u"}, REPORTS), [])
++        self.assertEqual(list_user_reports({"id": "u", "groups": None}, REPORTS), [])
++
++    def test_user_not_mutated(self) -> None:
++        user = {"id": "u", "groups": ["gamma"]}
++        before = copy.deepcopy(user)
++        self.assertEqual(ids(list_user_reports(user, REPORTS)), ["r3"])
++        self.assertEqual(user, before)
++
++
++if __name__ == "__main__":
++    unittest.main()

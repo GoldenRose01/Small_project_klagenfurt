@@ -1,0 +1,46 @@
+{
+  "identification": {
+    "run_id": "05_claude-opus-5-5-high_AB_A",
+    "task_id": "repo_pilot_v1",
+    "starting_commit": "c274dbfc5b6db9c0623a603e20a6816c1c1535dc",
+    "format": "A",
+    "pair_position": 1
+  },
+  "configuration": {
+    "environment": "antigravity",
+    "environment_version": "1.5.12",
+    "exact_model": "claude-opus-5-5-high",
+    "settings": {
+      "order": "AB",
+      "dry_run": false
+    },
+    "time_limit_s": 120,
+    "date_iso": "2026-11-19T14:33:05.510677+00:00"
+  },
+  "artifacts": {
+    "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_A_prose.txt",
+    "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\05_claude-opus-5-5-high_AB\\patch_A.diff",
+    "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\05_claude-opus-5-5-high_AB\\agent_A.log",
+    "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\suite_20261119T140138Z\\05_claude-opus-5-5-high_AB\\eval_A.json"
+  },
+  "outcomes": {
+    "trial_classification": "valid_pass",
+    "cases": {
+      "F01": true,
+      "F02": true,
+      "F03": true,
+      "A01": true,
+      "A02": true,
+      "A03": true
+    },
+    "independent_all_passed": true,
+    "all_passed": true,
+    "elapsed_agent_s": 74.8884,
+    "elapsed_evaluator_s": 0.885
+  },
+  "anomalies": {
+    "error_description": null,
+    "patch_evaluable": true,
+    "included_in_analysis": true
+  }
+}

@@ -1,0 +1,19 @@
+EXIT: 0
+--- STDOUT ---
+Users now only see reports from their own groups, and all 16 tests pass (the 2 existing smoke tests plus 14 new ones). Both `visible_reports(user_groups, reports)` and `list_user_reports(user, reports)` keep their signatures.
+
+**What changed**
+- **[policy.py](file:///C:/Users/franc/OneDrive/Documenti/GitHub/Small_project_klagenfurt/pilot_evaluator/runs/suite_20261119T140138Z/05_claude-opus-5-5-high_AB/repo_B/src/reporting/policy.py)**: `visible_reports` now keeps only reports whose `group` exactly matches one of `user_groups`.
+  - It always returns a new list in the original input order and never modifies its arguments.
+  - It returns `[]` when `user_groups` or `reports` is empty.
+- **[service.py](file:///C:/Users/franc/OneDrive/Documenti/GitHub/Small_project_klagenfurt/pilot_evaluator/runs/suite_20261119T140138Z/05_claude-opus-5-5-high_AB/repo_B/src/reporting/service.py)**: one small change, so a user with `"groups": None` sees nothing instead of causing an error.
+- **[test_visibility.py](file:///C:/Users/franc/OneDrive/Documenti/GitHub/Small_project_klagenfurt/pilot_evaluator/runs/suite_20261119T140138Z/05_claude-opus-5-5-high_AB/repo_B/tests/test_visibility.py)** (new): covers filtering, input order, empty inputs, exact-match-only names, no changes to inputs, and the extra safety rules below.
+
+**Extra safety rules I added (not in your spec)**
+- **A single string counts as one group:** `visible_reports("alpha", ...)` treats `"alpha"` as one group name. Otherwise Python would split it into letters, and a group named `"a"` would match.
+- **Bad group values are never visible:** a report with a missing, `None` or non-string `group` is hidden. Non-string entries in `user_groups` are ignored.
+
+The results are the original report dictionaries, not copies. Nothing is modified, but if a caller later edits a returned report, the source data changes too. Only the standard library is used.
+
+--- STDERR ---
+

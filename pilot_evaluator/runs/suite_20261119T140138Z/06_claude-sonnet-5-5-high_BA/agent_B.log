@@ -1,0 +1,13 @@
+EXIT: 0
+--- STDOUT ---
+`visible_reports` in [policy.py](file:///C:/Users/franc/OneDrive/Documenti/GitHub/Small_project_klagenfurt/pilot_evaluator/runs/suite_20261119T140138Z/06_claude-sonnet-5-5-high_BA/repo_B/src/reporting/policy.py) now returns only the reports whose group is in `user_groups`. The two existing smoke tests and three new ones pass.
+
+- **Empty inputs:** it returns `[]` when `user_groups` or `reports` is empty.
+- **Order and mutation:** the result keeps the original report order. It builds a new list and doesn't modify either input. It turns `user_groups` into a set first, so it also works if you pass a generator.
+- **Interfaces:** the signatures of `visible_reports` and `list_user_reports` are unchanged. `list_user_reports` needed no edit, since it already passes the user's groups to `visible_reports`.
+- **Tests:** I added three tests to [test_smoke.py](file:///C:/Users/franc/OneDrive/Documenti/GitHub/Small_project_klagenfurt/pilot_evaluator/runs/suite_20261119T140138Z/06_claude-sonnet-5-5-high_BA/repo_B/tests/test_smoke.py). They cover filtering with order preserved and inputs unmodified, empty inputs, and `list_user_reports` against the sample users.
+
+Only the standard library is used.
+
+--- STDERR ---
+

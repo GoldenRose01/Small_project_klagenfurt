@@ -1,0 +1,15 @@
+EXIT: 0
+--- STDOUT ---
+`visible_reports` now returns only the reports whose `group` is in `user_groups`. All 6 tests pass: the 2 original smoke tests and 4 new ones. PowerShell showed exit code 1 only because `unittest` writes to stderr.
+
+- **Interfaces:** Both signatures are unchanged. `list_user_reports` needed no edit because it already calls `visible_reports` with the user's groups.
+- **Empty inputs:** An empty `user_groups` or an empty `reports` returns `[]`.
+- **Order and mutation:** The result is a new list in the original order, and neither input is changed.
+- **One-shot iterables:** `user_groups` can be a generator, because I convert it to a set once.
+- **Missing group:** A report with no `group` key is not shown.
+- **Tests:** I added tests to [tests/test_smoke.py](file:///C:/Users/franc/OneDrive/Documenti/GitHub/Small_project_klagenfurt/pilot_evaluator/runs/suite_20261119T140138Z/06_claude-sonnet-5-5-high_BA/repo_A/tests/test_smoke.py). They cover filtering with order preserved, empty inputs, no mutation (including a generator for `user_groups`), and `list_user_reports` for both sample users.
+
+The change itself is in [policy.py](file:///C:/Users/franc/OneDrive/Documenti/GitHub/Small_project_klagenfurt/pilot_evaluator/runs/suite_20261119T140138Z/06_claude-sonnet-5-5-high_BA/repo_A/src/reporting/policy.py).
+
+--- STDERR ---
+
