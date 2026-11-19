@@ -1,0 +1,46 @@
+{
+  "identification": {
+    "run_id": "pair_20261119T120616Z_AB_A",
+    "task_id": "repo_pilot_v1",
+    "starting_commit": "53d252bdb54a187a4ebf525db83f4cddcdc86b04",
+    "format": "A",
+    "pair_position": 1
+  },
+  "configuration": {
+    "environment": "antigravity",
+    "environment_version": "<VER>",
+    "exact_model": "gemini-4-hydrogen-high",
+    "settings": {
+      "order": "AB",
+      "dry_run": false
+    },
+    "time_limit_s": 120,
+    "date_iso": "2026-11-19T12:06:17.577749+00:00"
+  },
+  "artifacts": {
+    "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_A_prose.txt",
+    "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T120616Z_AB\\patch_A.diff",
+    "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T120616Z_AB\\agent_A.log",
+    "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T120616Z_AB\\eval_A.json"
+  },
+  "outcomes": {
+    "trial_classification": "no_patch",
+    "cases": {
+      "F01": false,
+      "F02": true,
+      "F03": true,
+      "A01": false,
+      "A02": false,
+      "A03": false
+    },
+    "independent_all_passed": false,
+    "all_passed": false,
+    "elapsed_agent_s": 0.0278,
+    "elapsed_evaluator_s": 0.9305
+  },
+  "anomalies": {
+    "error_description": "agent exited with code 1",
+    "patch_evaluable": false,
+    "included_in_analysis": true
+  }
+}
