@@ -108,7 +108,7 @@ def _run_single(
         cmd_template = args.cmd
         if not cmd_template:
             if args.env == "codex":
-                cmd_template = f"codex exec --model {args.model} {{prompt}}"
+                cmd_template = f"codex exec --full-auto --model {args.model} {{prompt}}"
             elif args.env == "antigravity":
                 cmd_template = f"antigravity chat --model {args.model} {{prompt}}"
             else:

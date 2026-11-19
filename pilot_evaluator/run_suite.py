@@ -71,7 +71,7 @@ def main() -> None:
         if args.env == "antigravity":
             cmd_template = 'agy -p {prompt} --model "{model}" --dangerously-skip-permissions'
         elif args.env == "codex":
-            cmd_template = 'codex exec --model "{model}" {prompt}'
+            cmd_template = 'codex exec --full-auto --model "{model}" {prompt}'
         else:
             raise ValueError(f"Unsupported --env {args.env} without --cmd")
 
