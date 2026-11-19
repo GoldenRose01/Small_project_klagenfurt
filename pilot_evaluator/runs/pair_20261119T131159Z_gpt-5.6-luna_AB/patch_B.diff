@@ -1,0 +1,40 @@
+diff --git a/src/reporting/__pycache__/__init__.cpython-313.pyc b/src/reporting/__pycache__/__init__.cpython-313.pyc
+new file mode 100644
+index 0000000..2a3523c
+Binary files /dev/null and b/src/reporting/__pycache__/__init__.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/models.cpython-313.pyc b/src/reporting/__pycache__/models.cpython-313.pyc
+new file mode 100644
+index 0000000..a4f11c7
+Binary files /dev/null and b/src/reporting/__pycache__/models.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/policy.cpython-313.pyc b/src/reporting/__pycache__/policy.cpython-313.pyc
+new file mode 100644
+index 0000000..52911c8
+Binary files /dev/null and b/src/reporting/__pycache__/policy.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/sample_data.cpython-313.pyc b/src/reporting/__pycache__/sample_data.cpython-313.pyc
+new file mode 100644
+index 0000000..b119af8
+Binary files /dev/null and b/src/reporting/__pycache__/sample_data.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/service.cpython-313.pyc b/src/reporting/__pycache__/service.cpython-313.pyc
+new file mode 100644
+index 0000000..74c32ce
+Binary files /dev/null and b/src/reporting/__pycache__/service.cpython-313.pyc differ
+diff --git a/src/reporting/policy.py b/src/reporting/policy.py
+index 525ddae..8c2a21d 100644
+--- a/src/reporting/policy.py
++++ b/src/reporting/policy.py
+@@ -5,8 +5,6 @@ from .models import Report
+ 
+ 
+ def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
+-    """Return reports visible to a user with the given group memberships.
+-
+-    Starting baseline: returns all reports without applying group filtering.
+-    """
+-    return list(reports)
++    """Return reports whose groups match the user's memberships."""
++    groups = set(user_groups)
++    return [report for report in reports if report["group"] in groups]
+diff --git a/tests/__pycache__/test_smoke.cpython-313.pyc b/tests/__pycache__/test_smoke.cpython-313.pyc
+new file mode 100644
+index 0000000..085e375
+Binary files /dev/null and b/tests/__pycache__/test_smoke.cpython-313.pyc differ

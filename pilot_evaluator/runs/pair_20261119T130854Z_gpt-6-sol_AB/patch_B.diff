@@ -1,0 +1,62 @@
+diff --git a/src/reporting/policy.py b/src/reporting/policy.py
+index 525ddae..ef981c8 100644
+--- a/src/reporting/policy.py
++++ b/src/reporting/policy.py
+@@ -5,8 +5,6 @@ from .models import Report
+ 
+ 
+ def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
+-    """Return reports visible to a user with the given group memberships.
+-
+-    Starting baseline: returns all reports without applying group filtering.
+-    """
+-    return list(reports)
++    """Return reports in the user's groups, preserving their original order."""
++    allowed_groups = set(user_groups)
++    return [report for report in reports if report["group"] in allowed_groups]
+diff --git a/tests/test_visibility.py b/tests/test_visibility.py
+new file mode 100644
+index 0000000..4bb7eaf
+--- /dev/null
++++ b/tests/test_visibility.py
+@@ -0,0 +1,40 @@
++"""Checks for report visibility through both public entry points."""
++
++import unittest
++
++from reporting import list_user_reports, visible_reports
++
++
++class VisibilityTests(unittest.TestCase):
++    def setUp(self) -> None:
++        self.reports = [
++            {"id": "1", "group": "beta", "title": "First"},
++            {"id": "2", "group": "alpha", "title": "Second"},
++            {"id": "3", "group": "beta", "title": "Third"},
++            {"id": "4", "group": "gamma", "title": "Fourth"},
++        ]
++
++    def test_filters_by_group_and_preserves_order(self) -> None:
++        self.assertEqual(
++            visible_reports(["beta", "alpha"], self.reports),
++            self.reports[:3],
++        )
++
++    def test_empty_inputs_return_empty_lists(self) -> None:
++        self.assertEqual(visible_reports([], self.reports), [])
++        self.assertEqual(visible_reports(["alpha"], []), [])
++        self.assertEqual(list_user_reports({"id": "u", "groups": []}, self.reports), [])
++
++    def test_service_filters_without_mutating_inputs(self) -> None:
++        user = {"id": "u", "groups": ["beta"]}
++        original_reports = [report.copy() for report in self.reports]
++        result = list_user_reports(user, self.reports)
++
++        self.assertEqual(result, [self.reports[0], self.reports[2]])
++        self.assertEqual(user, {"id": "u", "groups": ["beta"]})
++        self.assertEqual(self.reports, original_reports)
++        self.assertIsNot(result, self.reports)
++
++
++if __name__ == "__main__":
++    unittest.main()

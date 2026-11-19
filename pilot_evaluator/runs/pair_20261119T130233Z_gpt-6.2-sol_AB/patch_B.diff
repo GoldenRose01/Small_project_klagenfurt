@@ -1,0 +1,51 @@
+diff --git a/src/reporting/policy.py b/src/reporting/policy.py
+index 525ddae..3bef7e6 100644
+--- a/src/reporting/policy.py
++++ b/src/reporting/policy.py
+@@ -5,8 +5,9 @@ from .models import Report
+ 
+ 
+ def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
+-    """Return reports visible to a user with the given group memberships.
++    """Return reports in the user's groups, preserving their original order."""
++    if not reports:
++        return []
+ 
+-    Starting baseline: returns all reports without applying group filtering.
+-    """
+-    return list(reports)
++    allowed_groups = set(user_groups)
++    return [report for report in reports if report["group"] in allowed_groups]
+diff --git a/tests/test_visibility.py b/tests/test_visibility.py
+new file mode 100644
+index 0000000..6b8bc90
+--- /dev/null
++++ b/tests/test_visibility.py
+@@ -0,0 +1,27 @@
++import unittest
++from copy import deepcopy
++
++from reporting import list_user_reports, visible_reports
++from reporting.sample_data import SAMPLE_REPORTS
++
++
++class VisibilityTests(unittest.TestCase):
++    def test_service_filters_in_order_without_mutating_inputs(self) -> None:
++        user = {"id": "u1", "groups": ["beta", "alpha"]}
++        excluded = {"id": "r3", "group": "gamma", "title": "Gamma Audit"}
++        reports = [SAMPLE_REPORTS[0].copy(), excluded, SAMPLE_REPORTS[1].copy()]
++        original_user = deepcopy(user)
++        original_reports = deepcopy(reports)
++
++        self.assertEqual(list_user_reports(user, reports), SAMPLE_REPORTS)
++        self.assertEqual(user, original_user)
++        self.assertEqual(reports, original_reports)
++
++    def test_policy_accepts_iterable_memberships(self) -> None:
++        self.assertEqual(
++            visible_reports(iter(["beta"]), SAMPLE_REPORTS), SAMPLE_REPORTS[1:]
++        )
++
++    def test_empty_inputs_return_no_reports(self) -> None:
++        self.assertEqual(visible_reports([], SAMPLE_REPORTS), [])
++        self.assertEqual(visible_reports(["alpha"], []), [])

@@ -1,0 +1,46 @@
+{
+  "identification": {
+    "run_id": "pair_20261119T130505Z_gpt-6.2-astra_AB_B",
+    "task_id": "repo_pilot_v1",
+    "starting_commit": "b4070d224930233e448f02e2be3c33ea057300a1",
+    "format": "B",
+    "pair_position": 2
+  },
+  "configuration": {
+    "environment": "codex",
+    "environment_version": "codex-cli 0.169.1",
+    "exact_model": "gpt-6.2-astra",
+    "settings": {
+      "order": "AB",
+      "dry_run": false
+    },
+    "time_limit_s": 120,
+    "date_iso": "2026-11-19T13:06:52.600003+00:00"
+  },
+  "artifacts": {
+    "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_B_structured.txt",
+    "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T130505Z_gpt-6.2-astra_AB\\patch_B.diff",
+    "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T130505Z_gpt-6.2-astra_AB\\agent_B.log",
+    "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T130505Z_gpt-6.2-astra_AB\\eval_B.json"
+  },
+  "outcomes": {
+    "trial_classification": "valid_pass",
+    "cases": {
+      "F01": true,
+      "F02": true,
+      "F03": true,
+      "A01": true,
+      "A02": true,
+      "A03": true
+    },
+    "independent_all_passed": true,
+    "all_passed": true,
+    "elapsed_agent_s": 58.7298,
+    "elapsed_evaluator_s": 0.8865
+  },
+  "anomalies": {
+    "error_description": null,
+    "patch_evaluable": true,
+    "included_in_analysis": true
+  }
+}

@@ -1,0 +1,85 @@
+diff --git a/src/reporting/__pycache__/__init__.cpython-313.pyc b/src/reporting/__pycache__/__init__.cpython-313.pyc
+new file mode 100644
+index 0000000..d2febea
+Binary files /dev/null and b/src/reporting/__pycache__/__init__.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/models.cpython-313.pyc b/src/reporting/__pycache__/models.cpython-313.pyc
+new file mode 100644
+index 0000000..c111685
+Binary files /dev/null and b/src/reporting/__pycache__/models.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/policy.cpython-313.pyc b/src/reporting/__pycache__/policy.cpython-313.pyc
+new file mode 100644
+index 0000000..4424e74
+Binary files /dev/null and b/src/reporting/__pycache__/policy.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/sample_data.cpython-313.pyc b/src/reporting/__pycache__/sample_data.cpython-313.pyc
+new file mode 100644
+index 0000000..ee46794
+Binary files /dev/null and b/src/reporting/__pycache__/sample_data.cpython-313.pyc differ
+diff --git a/src/reporting/__pycache__/service.cpython-313.pyc b/src/reporting/__pycache__/service.cpython-313.pyc
+new file mode 100644
+index 0000000..0f33fc4
+Binary files /dev/null and b/src/reporting/__pycache__/service.cpython-313.pyc differ
+diff --git a/src/reporting/policy.py b/src/reporting/policy.py
+index 525ddae..cce005e 100644
+--- a/src/reporting/policy.py
++++ b/src/reporting/policy.py
+@@ -5,8 +5,6 @@ from .models import Report
+ 
+ 
+ def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
+-    """Return reports visible to a user with the given group memberships.
+-
+-    Starting baseline: returns all reports without applying group filtering.
+-    """
+-    return list(reports)
++    """Return reports in the user's groups, preserving their original order."""
++    groups = set(user_groups)
++    return [report for report in reports if report["group"] in groups]
+diff --git a/tests/__pycache__/test_smoke.cpython-313.pyc b/tests/__pycache__/test_smoke.cpython-313.pyc
+new file mode 100644
+index 0000000..72b30aa
+Binary files /dev/null and b/tests/__pycache__/test_smoke.cpython-313.pyc differ
+diff --git a/tests/__pycache__/test_visibility.cpython-313.pyc b/tests/__pycache__/test_visibility.cpython-313.pyc
+new file mode 100644
+index 0000000..401cf6c
+Binary files /dev/null and b/tests/__pycache__/test_visibility.cpython-313.pyc differ
+diff --git a/tests/test_visibility.py b/tests/test_visibility.py
+new file mode 100644
+index 0000000..bcdab91
+--- /dev/null
++++ b/tests/test_visibility.py
+@@ -0,0 +1,35 @@
++"""Regression checks for group-based report visibility."""
++
++from copy import deepcopy
++import unittest
++
++from reporting import list_user_reports, visible_reports
++
++
++class VisibilityTests(unittest.TestCase):
++    def test_group_filter_preserves_order_and_inputs(self) -> None:
++        reports = [
++            {"id": "r1", "group": "beta", "title": "First"},
++            {"id": "r2", "group": "private", "title": "Hidden"},
++            {"id": "r3", "group": "alpha", "title": "Third"},
++            {"id": "r4", "group": "beta", "title": "Fourth"},
++        ]
++        user = {"id": "u1", "groups": ["alpha", "beta", "beta"]}
++        original = deepcopy((user, reports))
++        expected = [reports[0], reports[2], reports[3]]
++
++        self.assertEqual(visible_reports(user["groups"], reports), expected)
++        self.assertEqual(visible_reports(iter(user["groups"]), reports), expected)
++        self.assertEqual(list_user_reports(user, reports), expected)
++        self.assertEqual((user, reports), original)
++
++    def test_empty_and_unmatched_inputs(self) -> None:
++        reports = [{"id": "r1", "group": "alpha", "title": "Report"}]
++        for groups, items in [([], reports), (["alpha"], []), ([], []), (["beta"], reports)]:
++            with self.subTest(groups=groups, reports=items):
++                self.assertEqual(visible_reports(groups, items), [])
++                self.assertEqual(list_user_reports({"id": "u1", "groups": groups}, items), [])
++
++
++if __name__ == "__main__":
++    unittest.main()

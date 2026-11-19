@@ -1,0 +1,43 @@
+diff --git a/src/reporting/policy.py b/src/reporting/policy.py
+index 525ddae..48a5102 100644
+--- a/src/reporting/policy.py
++++ b/src/reporting/policy.py
+@@ -5,8 +5,6 @@ from .models import Report
+ 
+ 
+ def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
+-    """Return reports visible to a user with the given group memberships.
+-
+-    Starting baseline: returns all reports without applying group filtering.
+-    """
+-    return list(reports)
++    """Return reports from the user's groups in their original order."""
++    groups = set(user_groups)
++    return [report for report in reports if report["group"] in groups]
+diff --git a/tests/test_visibility.py b/tests/test_visibility.py
+new file mode 100644
+index 0000000..ec056f1
+--- /dev/null
++++ b/tests/test_visibility.py
+@@ -0,0 +1,21 @@
++import unittest
++from copy import deepcopy
++
++from reporting import list_user_reports, visible_reports
++from reporting.sample_data import SAMPLE_REPORTS
++
++
++class VisibilityTests(unittest.TestCase):
++    def test_group_filter_preserves_order_and_inputs(self):
++        user = {"id": "u1", "groups": ["alpha", "beta"]}
++        alpha, beta = deepcopy(SAMPLE_REPORTS)
++        reports = [beta, {"id": "r3", "group": "gamma", "title": "Private"}, alpha]
++        original_inputs = deepcopy((user, reports))
++
++        self.assertEqual(list_user_reports(user, reports), [beta, alpha])
++        self.assertEqual(visible_reports(iter(user["groups"]), reports), [beta, alpha])
++        self.assertEqual((user, reports), original_inputs)
++
++    def test_empty_inputs(self):
++        self.assertEqual(visible_reports([], SAMPLE_REPORTS), [])
++        self.assertEqual(visible_reports(["alpha"], []), [])

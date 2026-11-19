@@ -1,0 +1,75 @@
+diff --git a/src/reporting/policy.py b/src/reporting/policy.py
+index 525ddae..56cc4f7 100644
+--- a/src/reporting/policy.py
++++ b/src/reporting/policy.py
+@@ -1,12 +1,10 @@
+-"""Visibility policy for reports."""
+-
+-from collections.abc import Iterable
+-from .models import Report
+-
+-
+-def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
+-    """Return reports visible to a user with the given group memberships.
+-
+-    Starting baseline: returns all reports without applying group filtering.
+-    """
+-    return list(reports)
++"""Visibility policy for reports."""
++
++from collections.abc import Iterable
++from .models import Report
++
++
++def visible_reports(user_groups: Iterable[str], reports: list[Report]) -> list[Report]:
++    """Return reports in their original order when their group is visible."""
++    allowed_groups = set(user_groups)
++    return [report for report in reports if report["group"] in allowed_groups]
+diff --git a/tests/test_visibility.py b/tests/test_visibility.py
+new file mode 100644
+index 0000000..96d2b25
+--- /dev/null
++++ b/tests/test_visibility.py
+@@ -0,0 +1,42 @@
++"""Checks for report access through both public entry points."""
++
++import unittest
++
++from reporting import list_user_reports, visible_reports
++
++
++class VisibilityTests(unittest.TestCase):
++    def setUp(self) -> None:
++        self.reports = [
++            {"id": "r1", "group": "beta", "title": "First"},
++            {"id": "r2", "group": "alpha", "title": "Second"},
++            {"id": "r3", "group": "beta", "title": "Third"},
++        ]
++
++    def test_filters_and_preserves_order(self) -> None:
++        self.assertEqual(
++            [report["id"] for report in visible_reports(["beta"], self.reports)],
++            ["r1", "r3"],
++        )
++        self.assertEqual(
++            [report["id"] for report in list_user_reports(
++                {"id": "u1", "groups": ["alpha", "beta"]}, self.reports
++            )],
++            ["r1", "r2", "r3"],
++        )
++
++    def test_empty_inputs(self) -> None:
++        self.assertEqual(visible_reports([], self.reports), [])
++        self.assertEqual(visible_reports(["beta"], []), [])
++        self.assertEqual(list_user_reports({"id": "u1", "groups": []}, self.reports), [])
++
++    def test_inputs_are_not_mutated(self) -> None:
++        groups = ["beta"]
++        reports_before = [report.copy() for report in self.reports]
++        visible_reports(groups, self.reports)
++        self.assertEqual(groups, ["beta"])
++        self.assertEqual(self.reports, reports_before)
++
++
++if __name__ == "__main__":
++    unittest.main()

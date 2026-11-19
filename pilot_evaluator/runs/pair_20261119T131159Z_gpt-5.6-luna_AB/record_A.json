@@ -1,0 +1,46 @@
+{
+  "identification": {
+    "run_id": "pair_20261119T131159Z_gpt-5.6-luna_AB_A",
+    "task_id": "repo_pilot_v1",
+    "starting_commit": "b4070d224930233e448f02e2be3c33ea057300a1",
+    "format": "A",
+    "pair_position": 1
+  },
+  "configuration": {
+    "environment": "codex",
+    "environment_version": "codex-cli 0.169.1",
+    "exact_model": "gpt-5.6-luna",
+    "settings": {
+      "order": "AB",
+      "dry_run": false
+    },
+    "time_limit_s": 120,
+    "date_iso": "2026-11-19T13:12:57.651245+00:00"
+  },
+  "artifacts": {
+    "prompt_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\prompts\\prompt_A_prose.txt",
+    "patch_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T131159Z_gpt-5.6-luna_AB\\patch_A.diff",
+    "agent_log_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T131159Z_gpt-5.6-luna_AB\\agent_A.log",
+    "evaluator_output_file": "C:\\Users\\franc\\OneDrive\\Documenti\\GitHub\\Small_project_klagenfurt\\pilot_evaluator\\runs\\pair_20261119T131159Z_gpt-5.6-luna_AB\\eval_A.json"
+  },
+  "outcomes": {
+    "trial_classification": "valid_pass",
+    "cases": {
+      "F01": true,
+      "F02": true,
+      "F03": true,
+      "A01": true,
+      "A02": true,
+      "A03": true
+    },
+    "independent_all_passed": true,
+    "all_passed": true,
+    "elapsed_agent_s": 57.0687,
+    "elapsed_evaluator_s": 0.8881
+  },
+  "anomalies": {
+    "error_description": null,
+    "patch_evaluable": true,
+    "included_in_analysis": true
+  }
+}
